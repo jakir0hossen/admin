@@ -26,14 +26,12 @@ if (isset($_POST['registerbtn'])) {
         // Hash the password for security
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Prepare the INSERT query (no need for id since it's auto-increment)
-        $query = "INSERT INTO register (username, email, password) VALUES ('$username', '$email', '$password')";
+        // Prepare the INSERT query using prepared statements
+        $stmt = $connection->prepare("INSERT INTO register (username, email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $email, $password);
 
         // Execute the query
-        $query_run = mysqli_query($connection, $query);
-
-        // Check if the query was successful
-        if ($query_run) {
+        if ($stmt->execute()) {
             $_SESSION['success'] = "Admin Profile Added";
             header('location: register.php');
         } else {
@@ -41,10 +39,32 @@ if (isset($_POST['registerbtn'])) {
             header('location: register.php');
         }
 
+        // Close the statement
+        $stmt->close();
+
     } else {
         $_SESSION['status'] = "Password and confirm password do not match";
         header('location: register.php');
     }
 
 }
+
+
+
+
+
+
+
+if(isset($_POST['edit_btn']))
+{
+    $id = $_POST['edit_id'];
+    
+    $query = "SELECT * FROM register WHERE id= '$id'";
+    $query_run = mysqli_query($connection,$query);
+}
+
+
+
+
+
 ?>
