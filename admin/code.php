@@ -55,13 +55,6 @@ if (isset($_POST['registerbtn'])) {
 
 
 
-if(isset($_POST['edit_btn']))
-{
-    $id = $_POST['edit_id'];
-    
-    $query = "SELECT * FROM register WHERE id= '$id'";
-    $query_run = mysqli_query($connection,$query);
-}
 
 
 
