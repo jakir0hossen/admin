@@ -1,5 +1,7 @@
 <?php
-session_start();
+// session_start();
+
+include('security.php');
 include('includes/header.php'); 
 include('includes/navbar.php'); 
 ?>
@@ -47,6 +49,18 @@ $connection = mysqli_connect("localhost","root","","adminpanel");
                 <label>Password</label>
                 <input type="text" name="edit_password" value="<?php echo $row['password']?>" class="form-control" placeholder="Enter Username">
             </div>
+
+
+            <div class="form-group">
+                <label>USERTYPE</label>
+               <select name="update_usertype" class="form-control">
+                <option value="admin">Admin</option>
+                <option value="users">user</option>
+               </select>
+            </div>
+
+
+
             <a href="register.php" class="btn btn-danger">CANCEL</a>
             <button type="submit" name="updatebtn" class="btn btn-success">Update </button>
 
